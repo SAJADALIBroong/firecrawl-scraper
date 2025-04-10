@@ -5,8 +5,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
   const { url } = await req.json();
   try {
     const data = await scrapeProduct(url);
-    console.log('Scrape Result:', data);
-    
+    if (!data || !data.products) {
+      return NextResponse.json({ 
+        error: 'No products found',
+        message: 'No products found on the provided URL'
+      }, { status: 404 });
+    }    
     return NextResponse.json({
       data: data,
       message: 'Scraping successful'

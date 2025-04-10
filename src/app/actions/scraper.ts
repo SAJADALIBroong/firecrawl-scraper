@@ -2,9 +2,11 @@
 import FireCrawlApp from '@mendable/firecrawl-js';
 import { z } from 'zod';
 
+const apiKey = process.env.FIRECRAWL_API_KEY;
+
 export async function scrapeProduct(url: string) {
   try {
-    const app = new FireCrawlApp({apiKey: "fc-dfe81a59554f4dfa85f773cf19a9f96a"});
+    const app = new FireCrawlApp({apiKey});  
 
     const schema = z.object({
       products: z.array(z.object({
